@@ -1,24 +1,15 @@
 # GPT-2 Transformer Training
 
-This repository contains code and configuration for fine-tuning a GPT-2 style transformer model on custom datasets. The project is organized for reproducible experiments, clear data management, and easy deployment of artifacts to GitHub.
+This repository contains a lightweight setup for fine-tuning a GPT-2 style transformer model on custom datasets. The layout is intentionally minimal so it is easy to push to GitHub and expand later.
 
 ## Project Layout
 
 ```
 .
-├── configs/            # YAML configs for data, model, and training hyperparameters
-├── data/
-│   ├── processed/      # Cleaned datasets ready for training
-│   └── raw/            # Original, immutable source data dumps
-├── docs/               # Additional documentation, design notes, or reports
-├── logs/               # Training logs, experiment tracking exports
-├── models/             # Saved model checkpoints and tokenizer assets
-├── notebooks/          # Exploratory notebooks (e.g., train_gpt2_trainsformer.ipynb)
-├── scripts/            # Utility scripts for setup, data prep, and training entry points
-├── src/                # Source code for data modules, model code, and utilities
-├── tests/              # Automated tests for the code in src/
-├── .gitignore
-├── requirements.txt
+├── notebooks/
+│   └── train_gpt2_trainsformer.ipynb  # Main experiment notebook
+├── .gitignore                         # Keeps virtualenvs, checkpoints, etc. out of git
+├── requirements.txt                   # Python dependencies for the notebook
 └── README.md
 ```
 
@@ -33,31 +24,25 @@ This repository contains code and configuration for fine-tuning a GPT-2 style tr
    ```bash
    pip install -r requirements.txt
    ```
-3. **Configure training:** edit the YAML files under `configs/` with dataset paths and hyperparameters.
-4. **Run training:**
+3. **Launch Jupyter and run the notebook:**
    ```bash
-   python scripts/train.py --config configs/default.yaml
+   jupyter notebook notebooks/train_gpt2_trainsformer.ipynb
    ```
 
 ## Notebooks
 
-Keep exploratory work inside `notebooks/`. Commit sanitized versions without large outputs so they stay lightweight in Git history.
+Keep exploratory work inside `notebooks/`. Before committing, clear or trim heavy outputs so the repository stays small.
 
 ## Data Handling
 
-- Store raw downloads in `data/raw/` and never modify them in place.
-- Place any processed datasets ready for modeling in `data/processed/`.
-- Add `.gitkeep` files (already included) to ensure empty folders stay in version control; remove them once real data is present.
+- Add new folders (e.g., `data/`, `models/`) only when you need them. Update `.gitignore` so large artifacts stay out of Git history.
 
 ## Testing
 
-Add unit tests under `tests/` and run them before pushing changes:
-```bash
-pytest
-```
+If you later add Python modules, create a `tests/` folder with unit tests and run them before pushing changes. For a notebook-only workflow this step is optional.
 
 ## Releasing
 
 - Tag important checkpoints or releases in Git.
-- Keep the README and configs up to date with model and dataset changes.
-- Consider adding CI (GitHub Actions) for automated linting and tests.
+- Keep the README up to date as the project grows.
+- Consider adding CI (GitHub Actions) once you introduce scripts or packages that benefit from automation.
